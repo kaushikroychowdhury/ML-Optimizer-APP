@@ -14,11 +14,28 @@ from sklearn.datasets import load_diabetes
 # Functions ............................................................................................................
 
 def filedownload(df):
+
+    """
+    filedownload function converts the dataframe df into csv file and downloads it.
+
+    :param df: dataframe containing max_feature, n_estimators, R^2.
+    """
+
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
     href = f'<a href="data:file/csv;base64,{b64}" download="model_performance.csv">Download CSV File</a>'
     return href
 def build_model_Adaboost_Regressor(df):
+
+    """
+    It builds a model using Adaboost regresion Algorithm.
+    Takes input from streamlit web interface and use those inputs for building the model.
+    Used GridSearchCV for Hyperparameter Tunning.
+    Ploting the result using Plotly Framework.
+
+    :param df: dataframe containing features and labels.
+    """
+
     X = df.iloc[:, :-1]  # Using all column except for the last column as X
     Y = df.iloc[:, -1]  # Selecting the last column as Y
 
@@ -120,6 +137,16 @@ def build_model_Adaboost_Regressor(df):
     st.markdown(filedownload(grid_results), unsafe_allow_html=True)
 
 def build_model_RandomForestRegressor(df):
+
+    """
+    It builds a model using Adaboost regresion Algorithm.
+    Takes input from streamlit web interface and use those inputs for building the model.
+    Used GridSearchCV for Hyperparameter Tunning.
+    Ploting the result using Plotly Framework.
+
+    :param df: dataframe containing features and labels.
+    """
+
     X = df.iloc[:, :-1]  # Using all column except for the last column as X
     Y = df.iloc[:, -1]  # Selecting the last column as Y
 
@@ -225,7 +252,7 @@ def build_model_RandomForestRegressor(df):
     st.markdown(filedownload(grid_results), unsafe_allow_html=True)
 
 
-# Page Layout .....................................
+# Page Layout ( Streamlit web Interface )
 st.set_page_config(page_title="HyperParameter Optimization")
 
 st.write("""
